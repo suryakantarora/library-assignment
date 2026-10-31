@@ -1,0 +1,45 @@
+<header class="topbar">
+  <h1>Library</h1>
+  <div class="user">
+    <span class="chip">{{ auth.session()?.name }}@if (auth.session()?.admin) { · admin }</span>
+    <button class="btn" type="button" (click)="logout()">Logout</button>
+  </div>
+</header>
+
+<main class="content">
+  @if (auth.welcome().length) {
+    <section class="alert info" role="status">
+      <div class="alert-body">
+        @for (line of auth.welcome(); track $index) {
+          <p>{{ line }}</p>
+        }
+      </div>
+      <button class="close" type="button" aria-label="Close" (click)="auth.dismissWelcome()">&times;</button>
+    </section>
+  }
+
+  @if (library.feedback(); as feedback) {
+    <section class="alert" [class.error]="feedback.kind === 'error'" [class.success]="feedback.kind === 'success'" role="status">
+      <div class="alert-body">
+        <p>{{ feedback.text }}</p>
+      </div>
+      <button class="close" type="button" aria-label="Close" (click)="library.clearFeedback()">&times;</button>
+    </section>
+  }
+
+  <div class="layout">
+    <div class="stack">
+      @if (auth.session()?.admin) {
+        <app-add-book-form />
+      }
+      @if (library.detail()) {
+        <app-book-detail-panel />
+      }
+      <app-book-list [admin]="auth.session()?.admin ?? false" />
+    </div>
+
+    @if (!auth.session()?.admin) {
+      <app-status-panel />
+    }
+  </div>
+</main>

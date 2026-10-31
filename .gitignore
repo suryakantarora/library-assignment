@@ -1,0 +1,10 @@
+.DS_Store
+.idea/
+.vscode/
+
+backend/target/
+backend/src/main/resources/static/
+
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/

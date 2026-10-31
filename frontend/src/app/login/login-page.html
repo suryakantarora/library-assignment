@@ -1,0 +1,19 @@
+<main class="login">
+  <form class="card login-card" (ngSubmit)="submit()">
+    <h1>Library</h1>
+    <p class="muted">Log in with your name. New names are registered automatically.</p>
+
+    @if (auth.farewell()) {
+      <p class="alert info" role="status">{{ auth.farewell() }}</p>
+    }
+
+    <label for="name">Name</label>
+    <input id="name" name="name" [(ngModel)]="name" maxlength="50" autocomplete="off" autofocus />
+
+    @if (error()) {
+      <p class="alert error" role="alert">{{ error() }}</p>
+    }
+
+    <button class="btn primary" type="submit" [disabled]="busy()">Login</button>
+  </form>
+</main>

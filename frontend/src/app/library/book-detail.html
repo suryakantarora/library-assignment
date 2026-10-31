@@ -1,0 +1,34 @@
+@if (library.detail(); as book) {
+  <section class="card">
+    <div class="detail-head">
+      <h2>{{ book.title }}</h2>
+      <button class="link" type="button" (click)="library.closeDetail()">Close</button>
+    </div>
+
+    <dl>
+      <dt>Status</dt>
+      <dd>
+        @if (book.available) {
+          Available
+        } @else if (book.borrowedByMe) {
+          Borrowed by you
+        } @else {
+          Currently borrowed
+        }
+      </dd>
+
+      @if (book.borrowedBy) {
+        <dt>Borrowed by</dt>
+        <dd>{{ book.borrowedBy }}</dd>
+      }
+
+      <dt>People waiting</dt>
+      <dd>{{ book.waitlistSize }}</dd>
+
+      @if (book.waitlistPosition) {
+        <dt>Your position</dt>
+        <dd>{{ book.waitlistPosition }}</dd>
+      }
+    </dl>
+  </section>
+}
