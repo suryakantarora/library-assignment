@@ -1,49 +1,61 @@
 <section class="card">
-  <h2>Books</h2>
+  <div class="section-heading">
+    <div>
+      <p class="section-eyebrow">THE COLLECTION</p>
+      <h2>Books</h2>
+    </div>
+    <span class="section-mark" aria-hidden="true">Aa</span>
+  </div>
 
   @if (library.books().length === 0) {
-    <p class="muted">No books are registered</p>
+    <div class="empty-state">
+      <span class="empty-mark" aria-hidden="true">+</span>
+      <p class="empty-title">Your shelves are waiting</p>
+      <p class="muted">No books are registered</p>
+    </div>
   } @else {
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Title</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (book of library.books(); track book.title; let i = $index) {
+    <div class="table-wrap">
+      <table>
+        <thead>
           <tr>
-            <td>{{ i + 1 }}</td>
-            <td>{{ book.title }}</td>
-            <td>
-              @if (book.available) {
-                <span class="badge ok">available</span>
-              } @else if (book.borrowedByMe) {
-                <span class="badge mine">borrowed by you</span>
-              } @else {
-                <span class="badge busy">borrowed</span>
-              }
-            </td>
-            <td class="actions">
-              <button class="link" type="button" (click)="library.inspect(book.title)">Details</button>
-              @if (!admin()) {
-                @if (book.available) {
-                  <button class="btn primary" type="button" (click)="library.borrow(book.title)">Borrow</button>
-                } @else if (book.borrowedByMe) {
-                  <button class="btn" type="button" (click)="library.giveBack(book.title)">Return</button>
-                } @else if (book.waitlistPosition) {
-                  <span class="muted">Waitlist position {{ book.waitlistPosition }}</span>
-                } @else {
-                  <button class="btn" type="button" (click)="library.joinWaitlist(book.title)">Join waitlist</button>
-                }
-              }
-            </td>
+            <th>#</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th></th>
           </tr>
-        }
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @for (book of library.books(); track book.title; let i = $index) {
+            <tr>
+              <td class="book-number">{{ i + 1 }}</td>
+              <td class="book-title">{{ book.title }}</td>
+              <td>
+                @if (book.available) {
+                  <span class="badge ok">available</span>
+                } @else if (book.borrowedByMe) {
+                  <span class="badge mine">borrowed by you</span>
+                } @else {
+                  <span class="badge busy">borrowed</span>
+                }
+              </td>
+              <td class="actions">
+                <button class="link" type="button" (click)="library.inspect(book.title)">Details</button>
+                @if (!admin()) {
+                  @if (book.available) {
+                    <button class="btn primary" type="button" (click)="library.borrow(book.title)">Borrow</button>
+                  } @else if (book.borrowedByMe) {
+                    <button class="btn" type="button" (click)="library.giveBack(book.title)">Return</button>
+                  } @else if (book.waitlistPosition) {
+                    <span class="muted">Waitlist position {{ book.waitlistPosition }}</span>
+                  } @else {
+                    <button class="btn" type="button" (click)="library.joinWaitlist(book.title)">Join waitlist</button>
+                  }
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   }
 </section>

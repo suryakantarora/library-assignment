@@ -1,19 +1,43 @@
 <main class="login">
-  <form class="card login-card" (ngSubmit)="submit()">
-    <h1>Library</h1>
-    <p class="muted">Log in with your name. New names are registered automatically.</p>
+  <form class="login-card" (ngSubmit)="submit()">
+    <section class="login-brand" aria-label="Library">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M5 7.5c4.2-.9 7.8-.1 11 2.2v16c-3.2-2.3-6.8-3.1-11-2.2v-16Z" />
+          <path d="M27 7.5c-4.2-.9-7.8-.1-11 2.2v16c3.2-2.3 6.8-3.1 11-2.2v-16Z" />
+          <path d="M16 9.7v16" />
+        </svg>
+      </div>
+      <p class="brand-eyebrow">YOUR PERSONAL LIBRARY</p>
+      <h1>Make room for your next great read.</h1>
+      <p class="brand-copy">Keep track of the books you love and find your next favorite.</p>
+      <div class="brand-decoration" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </section>
 
-    @if (auth.farewell()) {
-      <p class="alert info" role="status">{{ auth.farewell() }}</p>
-    }
+    <section class="login-panel">
+      <div class="login-heading">
+        <p class="login-eyebrow">WELCOME</p>
+        <h2>Sign in to continue</h2>
+        <p class="muted">Log in with your name. New names are registered automatically.</p>
+      </div>
 
-    <label for="name">Name</label>
-    <input id="name" name="name" [(ngModel)]="name" maxlength="50" autocomplete="off" autofocus />
+      @if (auth.farewell()) {
+        <p class="alert info" role="status">{{ auth.farewell() }}</p>
+      }
 
-    @if (error()) {
-      <p class="alert error" role="alert">{{ error() }}</p>
-    }
+      <div class="login-field">
+        <label for="name">Name</label>
+        <input id="name" name="name" [(ngModel)]="name" maxlength="50" autocomplete="off" autofocus />
+      </div>
 
-    <button class="btn primary" type="submit" [disabled]="busy()">Login</button>
+      @if (error()) {
+        <p class="alert error" role="alert">{{ error() }}</p>
+      }
+
+      <button class="btn primary" type="submit" [disabled]="busy()">Login</button>
+      <p class="login-note">Ready when you are.</p>
+    </section>
   </form>
 </main>

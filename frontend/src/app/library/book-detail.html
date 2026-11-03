@@ -1,33 +1,48 @@
 @if (library.detail(); as book) {
-  <section class="card">
-    <div class="detail-head">
-      <h2>{{ book.title }}</h2>
-      <button class="link" type="button" (click)="library.closeDetail()">Close</button>
+  <section class="card detail-card">
+    <div class="section-heading detail-heading">
+      <div>
+        <p class="section-eyebrow">BOOK DETAILS</p>
+        <h2>{{ book.title }}</h2>
+      </div>
+      <button class="icon-button" type="button" aria-label="Close" (click)="library.closeDetail()">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m6 6 12 12M18 6 6 18" />
+        </svg>
+      </button>
     </div>
 
-    <dl>
-      <dt>Status</dt>
-      <dd>
-        @if (book.available) {
-          Available
-        } @else if (book.borrowedByMe) {
-          Borrowed by you
-        } @else {
-          Currently borrowed
-        }
-      </dd>
+    <dl class="detail-list">
+      <div class="detail-item">
+        <dt>Status</dt>
+        <dd>
+          @if (book.available) {
+            Available
+          } @else if (book.borrowedByMe) {
+            Borrowed by you
+          } @else {
+            Currently borrowed
+          }
+        </dd>
+      </div>
 
       @if (book.borrowedBy) {
-        <dt>Borrowed by</dt>
-        <dd>{{ book.borrowedBy }}</dd>
+        <div class="detail-item">
+          <dt>Borrowed by</dt>
+          <dd>{{ book.borrowedBy }}</dd>
+        </div>
       }
 
-      <dt>People waiting</dt>
-      <dd>{{ book.waitlistSize }}</dd>
+      <div class="detail-item">
+        <dt>People waiting</dt>
+        <dd>{{ book.waitlistSize }}</dd>
+      </div>
 
       @if (book.waitlistPosition) {
-        <dt>Your position</dt>
-        <dd>{{ book.waitlistPosition }}</dd>
+        <div class="detail-item">
+          <dt>Your position</dt>
+          <dd>{{ book.waitlistPosition }}</dd>
+        </div>
       }
     </dl>
   </section>

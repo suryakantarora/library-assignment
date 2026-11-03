@@ -1,5 +1,14 @@
 <header class="topbar">
-  <h1>Library</h1>
+  <div class="topbar-brand">
+    <span class="topbar-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none">
+        <path d="M5 7.5c4.2-.9 7.8-.1 11 2.2v16c-3.2-2.3-6.8-3.1-11-2.2v-16Z" />
+        <path d="M27 7.5c-4.2-.9-7.8-.1-11 2.2v16c3.2-2.3 6.8-3.1 11-2.2v-16Z" />
+        <path d="M16 9.7v16" />
+      </svg>
+    </span>
+    <h1>Library</h1>
+  </div>
   <div class="user">
     <span class="chip">{{ auth.session()?.name }}@if (auth.session()?.admin) { · admin }</span>
     <button class="btn" type="button" (click)="logout()">Logout</button>
@@ -26,6 +35,20 @@
       <button class="close" type="button" aria-label="Close" (click)="library.clearFeedback()">&times;</button>
     </section>
   }
+
+  <section class="page-heading">
+    <div>
+      <p class="page-eyebrow">YOUR READING SPACE</p>
+      <h2>Welcome back, {{ auth.session()?.name }}</h2>
+      <p class="muted">@if (auth.session()?.admin) { Manage the collection and keep it growing. } @else { Find a book to read, or check in on the ones you've borrowed. }</p>
+    </div>
+    <span class="page-accent" aria-hidden="true">
+      <svg viewBox="0 0 48 48" fill="none">
+        <path d="M8 11c6.3-1.4 11.7-.2 16 3.3v24c-4.3-3.5-9.7-4.7-16-3.3V11Z" />
+        <path d="M40 11c-6.3-1.4-11.7-.2-16 3.3v24c4.3-3.5 9.7-4.7 16-3.3V11Z" />
+      </svg>
+    </span>
+  </section>
 
   <div class="layout">
     <div class="stack">

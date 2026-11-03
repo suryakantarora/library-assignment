@@ -16,7 +16,10 @@ describe('LibraryService', () => {
     http = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => http.verify());
+  afterEach(() => {
+    http.verify();
+    vi.useRealTimers();
+  });
 
   function flushRefresh(): void {
     http.expectOne('/api/books').flush(books);
@@ -59,5 +62,20 @@ describe('LibraryService', () => {
 
     expect(await pending).toBe(false);
     expect(library.feedback()).toEqual({ text: 'Sorry, "1984" is currently not available.', kind: 'error' });
+  });
+
+  it('clears action feedback after five seconds', async () => {
+    vi.useFakeTimers();
+    const pending = library.borrow('1984');
+    http.expectOne('/api/borrow').flush({ message: 'You borrowed "1984".' });
+    await Promise.resolve();
+    flushRefresh();
+    await pending;
+
+    await vi.advanceTimersByTimeAsync(4999);
+    expect(library.feedback()).not.toBeNull();
+
+    await vi.advanceTimersByTimeAsync(1);
+    expect(library.feedback()).toBeNull();
   });
 });

@@ -7,10 +7,16 @@ import { LibraryService } from '../core/library.service';
   imports: [FormsModule],
   template: `
     <form class="card add-form" (ngSubmit)="submit()">
-      <h2>Add a book</h2>
-      <div class="row">
+      <div class="section-heading">
+        <div>
+          <p class="section-eyebrow">GROW THE COLLECTION</p>
+          <h2>Add a book</h2>
+        </div>
+        <span class="section-mark add-mark" aria-hidden="true">+</span>
+      </div>
+      <div class="row add-row">
         <input name="title" [(ngModel)]="title" maxlength="150" placeholder="Book title" autocomplete="off" />
-        <button class="btn primary" type="submit" [disabled]="!title.trim()">Add</button>
+        <button class="btn primary" type="submit" [disabled]="!title.trim()">Add book</button>
       </div>
     </form>
   `,

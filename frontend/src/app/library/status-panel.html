@@ -1,23 +1,40 @@
 <aside class="card">
-  <h2>My status</h2>
+  <div class="section-heading">
+    <div>
+      <p class="section-eyebrow">YOUR ACCOUNT</p>
+      <h2>My status</h2>
+    </div>
+    <span class="status-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M5 6.5c2.8-.6 5.2-.1 7 1.5v10c-1.8-1.6-4.2-2.1-7-1.5v-10Z" />
+        <path d="M19 6.5c-2.8-.6-5.2-.1-7 1.5v10c1.8-1.6 4.2-2.1 7-1.5v-10Z" />
+      </svg>
+    </span>
+  </div>
 
   @if (library.status().borrowed.length === 0) {
-    <p class="muted">You don't have any books borrowed yet.</p>
+    <div class="status-empty">
+      <p class="muted">You don't have any books borrowed yet.</p>
+    </div>
   } @else {
-    <h3>Your borrowed books</h3>
-    <ol>
-      @for (title of library.status().borrowed; track title) {
-        <li>{{ title }}</li>
-      }
-    </ol>
+    <div class="status-group">
+      <h3>Your borrowed books</h3>
+      <ol>
+        @for (title of library.status().borrowed; track title) {
+          <li>{{ title }}</li>
+        }
+      </ol>
+    </div>
   }
 
   @if (library.status().waitlists.length) {
-    <h3>Your wait lists</h3>
-    <ol>
-      @for (entry of library.status().waitlists; track entry.title) {
-        <li>{{ entry.title }} - position {{ entry.position }}</li>
-      }
-    </ol>
+    <div class="status-group">
+      <h3>Your wait lists</h3>
+      <ol>
+        @for (entry of library.status().waitlists; track entry.title) {
+          <li>{{ entry.title }} <span class="wait-position">Position {{ entry.position }}</span></li>
+        }
+      </ol>
+    </div>
   }
 </aside>

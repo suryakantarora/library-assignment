@@ -7,6 +7,7 @@ import { ActionResponse, Book, BookDetail, Feedback, Status } from './models';
 @Injectable({ providedIn: 'root' })
 export class LibraryService {
   private readonly http = inject(HttpClient);
+  private feedbackTimeout: ReturnType<typeof setTimeout> | null = null;
 
   readonly books = signal<Book[]>([]);
   readonly status = signal<Status>({ borrowed: [], waitlists: [] });
@@ -23,7 +24,7 @@ export class LibraryService {
       this.status.set(status);
       await this.reloadDetail();
     } catch (error) {
-      this.feedback.set({ text: errorMessage(error), kind: 'error' });
+      this.showFeedback({ text: errorMessage(error), kind: 'error' });
     }
   }
 
@@ -48,7 +49,7 @@ export class LibraryService {
       const params = { title };
       this.detail.set(await firstValueFrom(this.http.get<BookDetail>('/api/books/detail', { params })));
     } catch (error) {
-      this.feedback.set({ text: errorMessage(error), kind: 'error' });
+      this.showFeedback({ text: errorMessage(error), kind: 'error' });
     }
   }
 
@@ -57,13 +58,17 @@ export class LibraryService {
   }
 
   clearFeedback(): void {
+    if (this.feedbackTimeout !== null) {
+      clearTimeout(this.feedbackTimeout);
+      this.feedbackTimeout = null;
+    }
     this.feedback.set(null);
   }
 
   reset(): void {
     this.books.set([]);
     this.status.set({ borrowed: [], waitlists: [] });
-    this.feedback.set(null);
+    this.clearFeedback();
     this.detail.set(null);
   }
 
@@ -78,12 +83,18 @@ export class LibraryService {
     let succeeded = false;
     try {
       const response = await firstValueFrom(this.http.post<ActionResponse>(url, { title }));
-      this.feedback.set({ text: response.message, kind: 'success' });
+      this.showFeedback({ text: response.message, kind: 'success' });
       succeeded = true;
     } catch (error) {
-      this.feedback.set({ text: errorMessage(error), kind: 'error' });
+      this.showFeedback({ text: errorMessage(error), kind: 'error' });
     }
     await this.refresh();
     return succeeded;
+  }
+
+  private showFeedback(feedback: Feedback): void {
+    this.clearFeedback();
+    this.feedback.set(feedback);
+    this.feedbackTimeout = setTimeout(() => this.clearFeedback(), 5000);
   }
 }
