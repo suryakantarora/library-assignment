@@ -2,9 +2,33 @@
 .idea/
 .vscode/
 
+# OS / editor files
+*.swp
+*.swo
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Java / Maven
 backend/target/
 backend/src/main/resources/static/
+*.class
 
+# Frontend
 frontend/node_modules/
 frontend/dist/
 frontend/.angular/
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+*.key
+*.crt
+
+# Local runtime files
+/backend/.classpath
+/backend/.project
+/backend/.settings/
