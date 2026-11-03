@@ -76,29 +76,29 @@ start.sh   Build + run script
 
 - Login as `admin` and add some books
 
-![Admin dashboard with available books](image.png)
+![Admin dashboard with available books](images/image.png)
 
 - Log out and log in as another user, for example `surya`, and borrow books
 
-![User dashboard after logging in as surya](image-1.png)
-![Borrowing a book from the library](image-2.png)
+![User dashboard after logging in as surya](images/image-1.png)
+![Borrowing a book from the library](images/image-2.png)
 
 - Log out and log in as another user, such as `abha`, and join the waitlist
 
-![Waitlist page for a popular book](image-3.png)
+![Waitlist page for a popular book](images/image-3.png)
 
 - Log out and log in as another user, such as `pankaj`, join the waitlist, and click Details to view the book details
 
-![Book details page for a waitlisted title](image-4.png)
+![Book details page for a waitlisted title](images/image-4.png)
 
 - Log out and log in as `admin` to review the details
 
-![Admin view of book details and waitlist information](image-5.png)
+![Admin view of book details and waitlist information](images/image-5.png)
 
 - Log out and log in as `surya` and return a book
 
-![Returning a borrowed book](image-6.png)
+![Returning a borrowed book](images/image-6.png)
 
 - Log in as `abha` to see the message that the book has been automatically allocated
 
-![Waitlist notification showing automatic book allocation](image-7.png)
+![Waitlist notification showing automatic book allocation](images/image-7.png)
